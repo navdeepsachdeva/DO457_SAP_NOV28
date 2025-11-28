@@ -1,0 +1,22 @@
+- name: Ignore Errors Demo
+  hosts: iosxe1*
+  gather_facts: false
+  tasks:
+    - name: Displaying VLAN id 150 information
+      cisco.ios.ios_command:
+        commands:
+          - show vlan id 150
+      ignore_errors: true
+
+    - name: Change Description Config
+      cisco.ios.ios_interfaces:
+        config:
+          - name: GigabitEthernet1
+            description: "Hello Day 2"
+        state: merged
+
+    - name: Setup Login Banner
+      cisco.ios.ios_banner:
+        banner: login
+        text: "Day 2 LOGIN Banner"
+        state: present

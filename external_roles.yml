@@ -1,0 +1,7 @@
+- name: Roles Demo Play
+  hosts: iosxe1*
+  gather_facts: false
+
+  roles:
+    - role: navdeepsachdeva.windows_iis
+    - role: cisco.catalystwan.health_checks

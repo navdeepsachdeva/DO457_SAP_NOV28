@@ -1,0 +1,46 @@
+- name: First Play
+  hosts: iosxe1*
+  gather_facts: false
+  tasks:
+    - name: First Description Config
+      cisco.ios.ios_interfaces:
+        config:
+          - name: GigabitEthernet1
+            description: "Hello Day 2"
+        state: merged
+
+- name: Second Play
+  hosts: iosxe2*
+  gather_facts: false
+  tasks:
+    - name: Second Description Config
+      cisco.ios.ios_interfaces:
+        config:
+          - name: GigabitEthernet2
+            description: "Hello Day 2 DIFFERENT"
+        state: merged
+
+- name: Third Play on Juniper
+  hosts: junos1*
+  gather_facts: false
+  tasks:
+    - name: Open 830 port for netconf
+      vars:
+        ansible_connection: ansible.netcommon.network_cli
+      junipernetworks.junos.junos_netconf:
+        netconf_port: 830
+        state: present
+
+    - name: Backup Junos configurations
+      junipernetworks.junos.junos_config:
+        backup: true
+        backup_options:
+          dir_path: ./
+          filename: "{{ inventory_hostname }}.txt"
+
+    - name: Close 830 port for netconf
+      junipernetworks.junos.junos_netconf:
+        netconf_port: 830
+        state: absent
+      vars:
+        ansible_connection: ansible.netcommon.network_cli

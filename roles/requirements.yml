@@ -1,0 +1,6 @@
+- src: geerlingguy.mysql
+- src: navdeepsachdeva.windows_iis
+ 
+# - src: https://git.example.com/someauthor/netrole
+#   scm: git
+#   version: "1.5.0"

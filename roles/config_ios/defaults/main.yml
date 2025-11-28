@@ -1,0 +1,6 @@
+---
+# defaults file for config_ios
+config_ios_eth_name: GigabitEthernet1
+config_ios_eth_desc: "Hello Default Priority 2"
+config_ios_banner_type: login
+config_ios_banner_text: "Day 4 LOGIN Defaults Banners"

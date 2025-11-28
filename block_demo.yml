@@ -1,0 +1,53 @@
+- name: Condition Demo
+  hosts: iosxe1*
+  # hosts: iosxe1*,junos1*
+  gather_facts: true
+  vars:
+    mynic: GigabitEthernet1
+  vars_files:
+    - vars/outside_vars.yml
+  tasks:
+    - name: Block of Cisco Tasks
+      when:
+        - ansible_network_os == "cisco.ios.ios"
+        - ansible_facts['net_version'] > "18" or ansible_net_api == "cliconf"
+        - meme is not defined
+      block:
+        - name: Collect Facts Yourself
+          cisco.ios.ios_facts:
+            gather_subset: all
+
+        - name:  Print the facts
+          ansible.builtin.copy:
+            dest: ./iosxe1_facts.txt
+            content: |
+              API         = "{{ ansible_net_api }}"
+              Hostname    = "{{ ansible_facts['net_hostname'] }}"
+              Image       = "{{ ansible_facts['net_image'] }}"
+              Serial Num  = "{{ ansible_facts['net_serialnum'] }}"
+              Version     = "{{ ansible_facts['net_versionnnnnn'] }}"
+              System      = "{{ ansible_facts['net_system'] }}"
+              Model       = "{{ ansible_facts['net_model'] }}"
+
+        - name: Setup Login Banner
+          cisco.ios.ios_banner:
+            banner: login
+            text: "Welcome -- {{ ansible_facts['net_serialnum'] }}"
+            state: present
+      rescue:
+        - name: Start Undoing Everything
+          ansible.builtin.debug:
+            msg: "MayDay MayDay"
+        - name: Delete Files
+          ansible.builtin.command: rm -rf ./iosxe1_facts.txt
+
+        - name: Remove the banner
+          cisco.ios.ios_banner:
+            banner: login
+            state: absent
+
+      always:
+        - name: Inform the customer
+          ansible.builtin.debug:
+            msg: "Send a email"
+

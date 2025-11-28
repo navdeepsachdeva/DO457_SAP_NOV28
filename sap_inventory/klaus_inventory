@@ -1,0 +1,53 @@
+## INI FOrmat Inventory File ##
+## = for INI ": " for YAML ##
+
+workstation.lab.example.com ansible_become=true ansible_become_user=root ansible_become_method=sudo ansible_user=devops
+git.lab.example.com
+utility.lab.example.com
+172.25.250.9
+#ansible_become=true ansible_become_user=root ansible_become_method=sudo
+
+[all:vars]
+sap_level="Level 3 Inventory file"
+
+[cisco]
+iosxe1.lab.example.com
+iosxe2.lab.example.com sap_level="Level 8 Inventory file IOSXE2"
+
+[arista]
+arista1.lab.example.com
+arista2.lab.example.com
+
+[arista:vars]
+ansible_connection=ansible.netcommon.network_cli
+ansible_network_os=arista.eos.eos
+ansible_become=true
+ansible_become_method=enable
+
+[juniper]
+junos1.lab.example.com
+junos2.lab.example.com
+
+[juniper:vars]
+ansible_connection=ansible.netcommon.netconf
+ansible_network_os=junipernetworks.junos.junos
+# ansible_user=student
+# ansible_ssh_private_key_file=~/.ssh/lab_rsa
+
+
+[devices:children]
+cisco
+arista
+
+# [cisco:vars]
+# ansible_connection=ansible.netcommon.network_cli
+# ansible_network_os=cisco.ios.ios
+# ansible_become=true
+# ansible_become_method=enable
+# ansible_become_user=admin
+# ansible_password=student
+
+#[range]
+#172.25.2.[1:10:2]
+#192.16[8:9].[1:4].[5:8]
+# system_[A:F].lab.example.com

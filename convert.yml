@@ -1,0 +1,27 @@
+- name: Convert from Ad-Hoc to Playbook
+  hosts: utility*
+  # remote_user: devops
+  gather_facts: false
+  tasks:
+    - name: Create File on Managed Host GOOD WAY YAML Format
+      ansible.builtin.copy:
+        dest: /tmp/f1
+        content: "Hello SAP Students GOOD ONE"
+
+    - name: Create File 2 on Managed Host 
+      ansible.builtin.copy:
+        dest: /tmp/f2
+        content: "Hello SAP Students Second FOR OK"
+    - name: Install a Software
+      ansible.builtin.dnf:
+        name: vsftpd
+        state: present
+      become: true
+    #
+    # - name: Create File on Managed Host Bad WAY INI Format
+    #   copy: dest=/tmp/f1 content="Hello SAP Students"
+    # Collection
+    # Company/Org.Product.ModuleName
+    # ansible.builtin.dnf
+    # VENDOR 
+    # cisco.ios.ios_interfaces

@@ -1,0 +1,22 @@
+<html>
+  <head>
+    <title>Devices Web Info Page</title>
+  </head>
+
+  <body>
+    {% for sys in groups["cisco"] %}
+	Loop Host    = {{ sys }}
+	Hostname     = {{ hostvars[sys].inventory_hostname}}<br/> 
+	API          = {{ hostvars[sys].ansible_facts['net_api'] }}<br/>
+	Hostname     = {{ hostvars[sys].ansible_facts['net_hostname'] }}<br/>
+	Image        = {{ hostvars[sys].ansible_facts['net_image'] }}<br/>
+	Serial Num   = {{ hostvars[sys].ansible_facts['net_serialnum'] }}<br/>
+	Version      = {{ hostvars[sys].ansible_facts['net_version'] }}<br/>
+	System       = {{ hostvars[sys].ansible_facts['net_system'] }}<br/>
+	Model        = {{ hostvars[sys].ansible_facts['net_model'] }}<br/>
+	Memory Free  = {{ hostvars[sys].ansible_facts['net_memfree_mb'] }}<br/>
+	Memory Total = {{ hostvars[sys].ansible_facts['net_memtotal_mb'] }}<br/>
+ 
+    {% endfor %}
+  </body>
+</html>

@@ -1,0 +1,4 @@
+{% for nic in complex_nics_list %}
+interface {{ nic['name'] }}
+  description {{ nic.desc | quote }}
+{% endfor %}

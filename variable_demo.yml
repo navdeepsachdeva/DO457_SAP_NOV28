@@ -1,0 +1,31 @@
+- name: Test Basic Cisco ENV Variables
+  hosts: cisco,juniper
+  gather_facts: false
+  ## Level 12 vars is BAD Practise
+  vars:
+    sap_level: "Level 12 Play vars"
+
+  ## Level 13 vars_prompt Interactive Development Env not PROD
+  vars_prompt:
+    - name: sap_level
+      prompt: "Hey What is your Level ?"
+      private: false
+
+  vars_files:
+    - ./vars/outside_vars.yml
+
+  tasks:
+    - name: "Print the Values for {{ sap_level }}"
+      ansible.builtin.debug:
+        msg: "{{ inventory_hostname }} == {{ ansible_connection }} == {{ sap_level }}"
+
+    - name: Print Username
+      ansible.builtin.debug:
+        msg: "{{ users.germany.user1 }} -- {{ users['slovakia']['user1'] }}"
+
+    # - name: Change Description Config
+    #   cisco.ios.ios_interfaces:
+    #     config:
+    #       - name: GigabitEthernet1
+    #         description: "Hello Day 2"
+    #     state: merged

@@ -1,0 +1,19 @@
+<html>
+  <head>
+    <title>Devices Web Info Page</title>
+  </head>
+
+  <body>
+	Hostname     = {{ inventory_hostname}}<br/> 
+	API          = {{ ansible_facts['net_api'] }}<br/>
+	Hostname     = {{ ansible_facts['net_hostname'] }}<br/>
+	Image        = {{ ansible_facts['net_image'] }}<br/>
+	Serial Num   = {{ ansible_facts['net_serialnum'] }}<br/>
+	Version      = {{ ansible_facts['net_version'] }}<br/>
+	System       = {{ ansible_facts['net_system'] }}<br/>
+	Model        = {{ ansible_facts['net_model'] }}<br/>
+	Memory Free  = {{ ansible_facts['net_memfree_mb'] }}<br/>
+	Memory Total = {{ ansible_facts['net_memtotal_mb'] }}<br/>
+ 
+  </body>
+</html>

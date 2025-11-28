@@ -1,0 +1,4 @@
+---
+# defaults file for info_ios
+
+info_ios_dir: ./sys_info/

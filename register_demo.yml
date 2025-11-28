@@ -1,0 +1,29 @@
+- name: Register Demo Dependency Task
+  hosts: iosxe1*
+  gather_facts: false
+  tasks:
+    - name: Change Description Config
+      cisco.ios.ios_interfaces:
+        config:
+          - name: GigabitEthernet1
+            description: "Hello Day 3 YES"
+        state: merged
+      register: alok_captured
+
+    - name: Print the captured Data FULL
+      ansible.builtin.debug:
+        var: alok_captured
+        # msg: "{{ alok_captured }}"
+
+    - name: Print the captured Data Specific 
+      ansible.builtin.debug:
+        msg: "{{ alok_captured.changed }}"
+        # msg: "{{ alok_captured.failed }}"
+        # msg: "{{ alok_captured }}"
+
+    - name: Setup Login Banner
+      cisco.ios.ios_banner:
+        banner: login
+        text: "Day 3 LOGIN Banner"
+        state: present
+      when: alok_captured.changed 

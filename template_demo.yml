@@ -1,0 +1,53 @@
+- name: Template Demo
+  hosts: iosxe1*,iosxe2*
+  gather_facts: false
+  vars_files:
+    - vars/outside_vars.yml
+  tasks:
+    - name: Block to Setup Webserver
+      block:
+        - name: Install httpd package
+          ansible.builtin.dnf:
+            name: httpd
+            state: latest
+
+        - name: Open Firewall port
+          ansible.posix.firewalld: 
+            service: http
+            permanent: yes
+            state: enabled
+            immediate: yes
+
+        - name: Start httpd service
+          service:
+            name: httpd
+            state: started
+      delegate_to: workstation.lab.example.com
+      become: true
+
+    - name: Collect Facts Yourself
+      cisco.ios.ios_facts:
+        gather_subset: all
+
+    - name: Collect Single Device Info Template
+      ansible.builtin.template:
+        # src: j2/simple.j2
+        src: j2/complex.j2
+        dest: /var/www/html/info.html
+      delegate_to: workstation.lab.example.com
+      become: true
+
+    # - name: Commands Format Step 1
+    #   ansible.builtin.template:
+    #     src: j2/commands.j2
+    #     dest: ./sys_info/commands.txt
+
+    # - name: Deploy configuration on IOS Step 2
+    #   cisco.ios.ios_config:
+    #     src: ./sys_info/commands.txt
+    #     save_when: changed
+
+    - name: Deploy configuration on IOS Step 1&2
+      cisco.ios.ios_config:
+        src: j2/commands.j2
+        save_when: changed

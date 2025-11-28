@@ -1,0 +1,5 @@
+sap_level: "Level 6 Inventory group_vars/* CISCO"
+ansible_connection: ansible.netcommon.network_cli
+ansible_network_os: cisco.ios.ios
+ansible_become: true
+ansible_become_method: enable

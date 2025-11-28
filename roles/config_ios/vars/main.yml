@@ -1,0 +1,4 @@
+---
+# vars file for config_ios
+config_ios_eth_desc: "Hello VARS Priority 15"
+config_ios_banner_text: "Day 4 LOGIN VARS Banners Priority 15"

@@ -1,0 +1,4 @@
+collections:
+  - name: redhat.rhel_system_roles
+  - name: cisco.catalystwan
+  - name: /home/student/Downloads/community-general-12.0.1.tar.gz

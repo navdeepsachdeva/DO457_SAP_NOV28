@@ -1,0 +1,18 @@
+---
+# handlers file for config_ios
+
+- name: WASTED HANDLER
+  ansible.builtin.debug:
+    msg: "WHY ARE EVEN THERE"
+
+- name: Changed the BANNER
+  ansible.builtin.debug:
+    msg: "YES changed LOGIN BANNER"
+
+- name: Save Config of Device
+  cisco.ios.ios_config:
+    save_when: always
+
+- name: Changed the Description
+  ansible.builtin.debug:
+    msg: "YES i changed DESC"

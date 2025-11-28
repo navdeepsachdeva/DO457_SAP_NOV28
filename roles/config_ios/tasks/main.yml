@@ -1,0 +1,25 @@
+---
+# tasks file for config_ios
+
+- name: Change Description Config
+  cisco.ios.ios_interfaces:
+    config:
+      - name: "{{ config_ios_eth_name }}"
+        description: "{{ config_ios_eth_desc }}"
+    state: merged
+  notify:
+    - Changed the Description
+    - Save Config of Device
+
+- name: Setup Login Banner
+  cisco.ios.ios_banner:
+    banner: "{{ config_ios_banner_type }}"
+    text: "{{ config_ios_banner_text }}"
+    state: present
+  notify:
+    - Changed the BANNER
+    - Save Config of Device
+
+# - name: Import a Task file
+#   ansible.builtin.import_tasks:
+#     file: config_tasks.yml 

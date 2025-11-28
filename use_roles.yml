@@ -1,0 +1,26 @@
+- name: Roles Demo Play
+  hosts: iosxe1*
+  gather_facts: false
+  vars_files:
+    - vars/outside_vars.yml
+
+  roles:
+    - role: config_ios
+      config_ios_banner_text: "Custom Banner via Play"
+    
+
+  tasks:
+    - name: Extra Task
+      ansible.builtin.command: sleep 2
+      notify:
+        - extra_handler
+    - name: Import/Include a Role
+      ansible.builtin.include_role:
+      #ansible.builtin.import_role:
+        name: myrole
+      when: meme_var is not defined
+
+  handlers:
+    - name: extra_handler
+      ansible.builtin.debug:
+        msg: "Extra Handler for Extra Task"

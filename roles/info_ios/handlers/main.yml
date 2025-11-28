@@ -1,0 +1,18 @@
+---
+# handlers file for info_ios
+
+- name: Directory Created
+  ansible.builtin.debug:
+    msg: "{{ info_ios_dir }} Created Success"
+
+- name: Information Collected
+  ansible.builtin.debug:
+    msg: "Info Collcted"
+
+- name: Template Information Collected
+  ansible.builtin.debug:
+    msg: "Template Information Collected DONE"
+
+- name: Commands Fired
+  ansible.builtin.debug:
+    msg: "Commands Fired DONE"

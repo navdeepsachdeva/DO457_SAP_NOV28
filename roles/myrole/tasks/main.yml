@@ -1,0 +1,5 @@
+---
+# tasks file for myrole
+
+- name: ANother ROle Task
+  ansible.builtin.command: sleep 2

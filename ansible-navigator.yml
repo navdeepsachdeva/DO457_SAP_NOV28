@@ -1,0 +1,25 @@
+---
+ansible-navigator:
+  ansible:
+    config:
+      help: false
+    inventory:
+      entries:
+        - ./sap_inventory
+        # - ./klaus_inventory
+      ## Higher Priority
+      help: false
+  execution-environment:
+    container-engine: podman
+    enabled: true
+    image: hub.lab.example.com/ee-supported-rhel8:latest
+    pull:
+      policy: missing
+  logging:
+    append: true
+    file: /home/student/sap_systems/ansible-navigator.log
+    level: warning
+  mode: stdout
+  playbook-artifact:
+    enable: false
+    save-as: '{playbook_dir}/{playbook_name}-artifact-{time_stamp}.json'

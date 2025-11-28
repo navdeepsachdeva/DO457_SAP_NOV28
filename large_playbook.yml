@@ -1,0 +1,28 @@
+- name: Import First Playbook
+  ansible.builtin.import_playbook: always.yml
+
+- name: Large Integration Playbook
+  hosts: iosxe1*
+  gather_facts: false
+
+  tasks:
+    - name: Import an External Task File STATIC
+      ansible.builtin.import_tasks:
+        file: tasks/info_tasks.yml 
+      when: meme is defined
+
+    - name: Include an External Task File RUNTIME
+      ansible.builtin.include_tasks:
+        file: tasks/config_tasks.yml 
+      when: meme is defined
+
+    - name: Loop around Task files
+      # ansible.builtin.import_tasks:
+      ansible.builtin.include_tasks:
+        file: "{{ item }}"
+      loop:
+        - tasks/info_tasks.yml
+        - tasks/config_tasks.yml
+
+- name: Import ANother Playbook
+  ansible.builtin.import_playbook: ignore_errors_demo.yml

@@ -1,0 +1,9 @@
+API           = cliconf
+Hostname      = "iosxe1.lab.example.com"
+Image         = "bootflash:packages.conf"
+Serial Num    = "9HR2EZNM1KZ"
+Version       = "17.06.02"
+System        = "ios"
+Model         = "C8000V"
+Memory Free   = "1839940.80859375"
+Memory Total  = "2028097.13671875"

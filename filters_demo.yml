@@ -1,0 +1,9 @@
+- name: FIlters Demo
+  hosts: iosxe1*
+  gather_facts: false
+  vars:
+    mystr: "Support filters"
+  tasks:
+    - name: Filter SOmething
+      ansible.builtin.debug:
+        msg: "{{ (mystr | upper | length | int)+10 }}"
